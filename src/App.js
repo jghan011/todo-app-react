@@ -5,9 +5,9 @@ function App() {
   const [shoppingCartItems, setShoppingCartItems] = React.useState([]);
   //setTodos will be the setter value. will set values of todos
   const [itemName, setItemName] = React.useState("");
- 
+
   const [todoEditing, setTodoEditing] = React.useState(null);
-  
+
   const [editingText, setEditingText] = React.useState("");
 
   function handleSubmit(e) {
@@ -24,31 +24,29 @@ function App() {
     setItemName("");
   }
 
-  function deleteShoppingCartItem(id1) {
-    const updatedShoppingCartItems = [...shoppingCartItems].filter((cartItem) => {
-      //console.log({ cartItem });
-      console.log({cartItem});
-      console.log({id1})// is basically based of todo.id on  the moment of the click of delete button so since it is todo.id the id means we are looking for time and date at the moment
-      return cartItem.id !== id1 // 12345 !== 12345 false they'll always be equal
-      // In this situation the cartitem.id looks for {pulls up shopping cart items object and looks for id which is :new Date().getTime()}
-    });
+  function deleteShoppingCartItem(idOne) {
+    const updatedShoppingCartItems = [...shoppingCartItems].filter(
+      (cartItem) => {
+        //console.log({ cartItem });
+        console.log({ cartItem });
+        console.log({ idOne }); // is basically based of todo.id on  the moment of the click of delete button so since it is todo.id the id means we are looking for time and date at the moment
+        return cartItem.id !== idOne; // 12345 !== 12345 false they'll always be equal
+        // In this situation the cartitem.id looks for {pulls up shopping cart items object and looks for id which is :new Date().getTime()}
+      }
+    );
     setShoppingCartItems(updatedShoppingCartItems);
-    console.log(id1); 
+    console.log(idOne);
   }
-  function submitTodo(id1 ) {
-    const updatedItemsOnSubmit = [...shoppingCartItems].map((cartItem)=>{
-        if(cartItem.id === id1){
-          cartItem.text = editingText
-        }
-        return cartItem;
-     
-    })
+  function submitTodo(idTwo) {
+    const updatedItemsOnSubmit = [...shoppingCartItems].map((cartItem) => {
+      if (cartItem.id === idTwo) {
+        cartItem.text = editingText;
+      }
+      return cartItem;
+    });
     setShoppingCartItems(updatedItemsOnSubmit);
     setTodoEditing(null);
-
   }
-
-
 
   return (
     <div className="App">
@@ -69,7 +67,7 @@ function App() {
       completed: false,
     };*/
         <div key={todo.id}>
-          {todoEditing == todo.id ? (
+          {todoEditing === todo.id ? (
             <input
               type="text"
               onChange={(e) => setEditingText(e.target.value)}
@@ -78,16 +76,16 @@ function App() {
           ) : (
             <div>{todo.text}</div>
           )}
-          <button onClick={() => deleteShoppingCartItem(todo.id)}>delete</button>
-            
-          <button onClick={() => setTodoEditing(todo.id)}>Edit Todo</button> 
-          <button onClick={()=> submitTodo(todo.id)}>Submit</button>
+          <button onClick={() => deleteShoppingCartItem(todo.id)}>
+            delete
+          </button>
+
+          <button onClick={() => setTodoEditing(todo.id)}>Edit Todo</button>
+          <button onClick={() => submitTodo(todo.id)}>Submit</button>
         </div>
       ))}
-       
     </div>
   );
-
 }
 // in the turnary it's saying if its the todo we're editing show an input if not show the text
 //to get edit working we add new hooks
