@@ -10,6 +10,19 @@ function App() {
 
   const [editingText, setEditingText] = React.useState("");
 
+  React.useEffect(() => {
+    const temp = localStorage.getItem("shoppingItemAccess"); // the quote is not abritrary.. we will use this quote and getItem to access from the other local storage from below see how it has the same name
+    const loadedItems = JSON.parse(temp);
+
+    if (loadedItems) {
+      setShoppingCartItems(loadedItems);
+    }
+  }, []); //we leave this empty because we only want to run this once when we load the page
+
+  React.useEffect(() => {
+    const jsonTing = JSON.stringify(shoppingCartItems);
+    localStorage.setItem("shoppingItemAccess", jsonTing); //the string is for where we can access this data, which can be anything you want to call it. the second value will be the const variable name
+  }, [shoppingCartItems]);
   function handleSubmit(e) {
     e.preventDefault();
 
