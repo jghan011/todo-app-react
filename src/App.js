@@ -23,6 +23,7 @@ function App() {
     const jsonTing = JSON.stringify(shoppingCartItems);
     localStorage.setItem("shoppingItemAccess", jsonTing); //the string is for where we can access this data, which can be anything you want to call it. the second value will be the const variable name
   }, [shoppingCartItems]);
+  
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -33,18 +34,15 @@ function App() {
     };
 
     setShoppingCartItems([...shoppingCartItems].concat(newShoppingItem));
-    // console.log({newShoppingItem}, 'was added')
     setItemName("");
   }
 
   function deleteShoppingCartItem(idOne) {
     const updatedShoppingCartItems = [...shoppingCartItems].filter(
       (cartItem) => {
-        //console.log({ cartItem });
         console.log({ cartItem });
-        console.log({ idOne }); // is basically based of todo.id on  the moment of the click of delete button so since it is todo.id the id means we are looking for time and date at the moment
-        return cartItem.id !== idOne; // 12345 !== 12345 false they'll always be equal
-        // In this situation the cartitem.id looks for {pulls up shopping cart items object and looks for id which is :new Date().getTime()}
+        console.log({ idOne }); 
+        return cartItem.id !== idOne; 
       }
     );
     setShoppingCartItems(updatedShoppingCartItems);
@@ -74,11 +72,7 @@ function App() {
       </form>
 
       {shoppingCartItems.map((todo) => (
-        /* todo will look for items inside of const newShoppingItem = {
-      id: new Date().getTime(),
-      text: itemName,
-      completed: false,
-    };*/
+       
         <div key={todo.id}>
           {todoEditing === todo.id ? (
             <input
@@ -100,9 +94,5 @@ function App() {
     </div>
   );
 }
-// in the turnary it's saying if its the todo we're editing show an input if not show the text
-//to get edit working we add new hooks
-//we did the key in the div so that we wouldn't get that caution in the console about having a unique key
-//filter works is if you return a true boolean or true value it will return and if you return a false it won't return
-// I was wondering how the delete button is working outside of the form but it's because we have todos targeted orignally and then todo.id  which will create a deletable button
+/
 export default App;
